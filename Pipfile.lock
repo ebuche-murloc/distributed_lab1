@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "516532d99872490256f50a93fc4db7ca6e3a63a568156f3d5b67a954d31b4b5c"
+            "sha256": "db956a4d209a005597d4de2fd87aea20e49d99a1f38d1e899d181bc573abec2a"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -42,11 +42,11 @@
         },
         "fastapi": {
             "hashes": [
-                "sha256:07032e53df9a57165047b4f38731c38bdcc3be5493220471015e2b4b51b486a4",
-                "sha256:254453a2e22f64e2a1b4e1d8baf67d239e55b6c8165c079d25746a5220c81bb4"
+                "sha256:263b718bb384422fe3d042ffc9a0c8dece5e034ab6586ff034f6b4b1667c3eee",
+                "sha256:915bf304180a0e7c5605ec81097b7d4cd8826ff87a02bb198e336fb9f3b5ff02"
             ],
             "index": "pypi",
-            "version": "==0.87.0"
+            "version": "==0.88.0"
         },
         "h11": {
             "hashes": [
@@ -214,18 +214,18 @@
         },
         "starlette": {
             "hashes": [
-                "sha256:0efc058261bbcddeca93cad577efd36d0c8a317e44376bcfc0e097a2b3dc24a7",
-                "sha256:b1b52305ee8f7cfc48cde383496f7c11ab897cd7112b33d998b1317dc8ef9027"
+                "sha256:b092cbc365bea34dd6840b42861bdabb2f507f8671e642e8272d2442e08ea4ff",
+                "sha256:b5eda991ad5f0ee5d8ce4c4540202a573bb6691ecd0c712262d0bc85cf8f2c50"
             ],
             "markers": "python_version >= '3.7'",
-            "version": "==0.21.0"
+            "version": "==0.22.0"
         },
         "typing-extensions": {
             "hashes": [
                 "sha256:1511434bb92bf8dd198c12b1cc812e800d4181cfcb867674e0f8279cc93087aa",
                 "sha256:16fa4864408f655d35ec496218b85f79b3437c829e93320c7c9215ccfd92489e"
             ],
-            "markers": "python_version < '3.10'",
+            "index": "pypi",
             "version": "==4.4.0"
         },
         "uvicorn": {
@@ -237,6 +237,7 @@
                 "sha256:c3ed1598a5668208723f2bb49336f4509424ad198d6ab2615b7783db58d919fd"
             ],
             "index": "pypi",
+            "markers": null,
             "version": "==0.20.0"
         },
         "watchfiles": {
