@@ -1,0 +1,25 @@
+version: "3.9"
+services:
+  web:
+    build: .
+    ports:
+      - 8080:8000
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: postgresql://byk:bykbykbyk@db/distributeddb
+  db:
+    image: postgres
+    restart: always
+    ports:
+      - 15432:5432
+    environment:
+      POSTGRES_PASSWORD: bykbykbyk
+      POSTGRES_USER: byk
+      POSTGRES_DB: distributeddb
+    volumes:
+      - "dbdata:/var/lib/postgresql/data"
+volumes:
+  dbdata:
+
+#(distributed_lab1) PS C:\Users\bda20\PycharmProjects\distributed_lab1> docker-compose up --build
