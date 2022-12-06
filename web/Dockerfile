@@ -15,7 +15,7 @@ RUN pipenv sync
 
 EXPOSE 8000
 
-COPY web /app
+COPY . /app
 #копируем код после копирования зависимостей и их синхронизации чтобы при изменении кода всё быро было
 CMD pipenv run uvicorn web:app --reload --host 0.0.0.0
 #--host 0.0.0.0 делает приложение доступным по локалке

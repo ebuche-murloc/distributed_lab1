@@ -1,13 +1,29 @@
 version: "3.9"
+
 services:
   web:
-    build: .
+    build: web/.
     ports:
       - 8080:8000
     depends_on:
       - db
+    networks:
+      - webnet
     environment:
       DATABASE_URL: postgresql://byk:bykbykbyk@db/distributeddb
+
+  loader:
+    build: loader/.
+    restart: on-failure
+    depends_on:
+      - rabbit
+      - web
+    networks:
+      - webnet
+    environment:
+      RABBITMQ_URL: amqp://bykrabbit:bykbykbyk@rabbit:5672/%2F
+      WEB_BASE_URL: http://web:8000
+
   db:
     image: postgres
     restart: always
@@ -19,7 +35,34 @@ services:
       POSTGRES_DB: distributeddb
     volumes:
       - "dbdata:/var/lib/postgresql/data"
+    networks:
+      - webnet
+
+  rabbit:
+    image: rabbitmq:management
+    hostname: rabbit
+    environment:
+      RABBITMQ_DEFAULT_USER: bykrabbit
+      RABBITMQ_DEFAULT_PASS: bykbykbyk
+    ports:
+      - 15672:15672
+    healthcheck:
+      test: rabbitmq-diagnostics -q ping
+      interval: 30s
+      timeout: 30s
+      retries: 3
+    networks:
+      - webnet
+
 volumes:
   dbdata:
 
+networks:
+  rabbitnet:
+    driver: bridge
+
+  webnet:
+    driver: bridge
+
 #(distributed_lab1) PS C:\Users\bda20\PycharmProjects\distributed_lab1> docker-compose up --build
+#depends_on определяет порядок подрубка контейнеров

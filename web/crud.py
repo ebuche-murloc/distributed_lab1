@@ -13,3 +13,8 @@ def create_link(db: Session, link: schemas.LinkCreate) -> models.Link:
     db.commit()
     db.refresh(db_link) #чтобы подтянулось id но тут не совсем понятно для чего, и почему оно не подтянется само
     return db_link
+
+def update_link(db: Session, link_id: int, link_update: schemas.LinkUpdate) -> models.Link:
+    db.query(models.Link).filter(models.Link.id == link_id).update({'status' : link_update.status})
+    db.commit()
+    return get_link(db, link_id)

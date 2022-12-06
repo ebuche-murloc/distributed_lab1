@@ -4,7 +4,6 @@ from sqlalchemy.orm import sessionmaker
 from os import environ
 
 
-
 engine = create_engine(environ.get("DATABASE_URL"))
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
