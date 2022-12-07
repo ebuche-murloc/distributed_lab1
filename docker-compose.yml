@@ -1,28 +1,41 @@
 version: "3.9"
 
 services:
-  web:
+  web_1:
     build: web/.
-    ports:
-      - 8080:8000
     depends_on:
       - db
     networks:
       - webnet
     environment:
+      RABBITMQ_URL: amqp://bykrabbit:bykbykbyk@rabbit:5672/%2F
+      RABBITMQ_QUEUE: links
       DATABASE_URL: postgresql://byk:bykbykbyk@db/distributeddb
+      NAME: byk1
+
+  web_2:
+    build: web/.
+    depends_on:
+      - db
+    networks:
+      - webnet
+    environment:
+      RABBITMQ_URL: amqp://bykrabbit:bykbykbyk@rabbit:5672/%2F
+      RABBITMQ_QUEUE: links
+      DATABASE_URL: postgresql://byk:bykbykbyk@db/distributeddb
+      NAME: byk2
 
   loader:
     build: loader/.
     restart: on-failure
     depends_on:
       - rabbit
-      - web
+      - nginx
     networks:
       - webnet
     environment:
       RABBITMQ_URL: amqp://bykrabbit:bykbykbyk@rabbit:5672/%2F
-      WEB_BASE_URL: http://web:8000
+      WEB_BASE_URL: http://nginx:80
 
   db:
     image: postgres
@@ -51,6 +64,16 @@ services:
       interval: 30s
       timeout: 30s
       retries: 3
+    networks:
+      - webnet
+
+  nginx:
+    build: nginx/.
+    ports:
+      - 8080:80
+    depends_on:
+      - web_1
+      - web_2
     networks:
       - webnet
 
