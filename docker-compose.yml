@@ -31,11 +31,13 @@ services:
     depends_on:
       - rabbit
       - nginx
+      - redis
     networks:
       - webnet
     environment:
       RABBITMQ_URL: amqp://bykrabbit:bykbykbyk@rabbit:5672/%2F
       WEB_BASE_URL: http://nginx:80
+      CACHE_HOST: redis
 
   db:
     image: postgres
@@ -77,8 +79,16 @@ services:
     networks:
       - webnet
 
+  redis:
+    image: redis
+    networks:
+      - webnet
+    volumes:
+      - cache:/data
+
 volumes:
   dbdata:
+  cache:
 
 networks:
   rabbitnet:
@@ -89,3 +99,4 @@ networks:
 
 #(distributed_lab1) PS C:\Users\bda20\PycharmProjects\distributed_lab1> docker-compose up --build
 #depends_on определяет порядок подрубка контейнеров
+#docker-compose exec -it redis redis-cli

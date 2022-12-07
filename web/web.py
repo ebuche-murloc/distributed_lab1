@@ -49,6 +49,7 @@ def read_link(link_id: int, db: Session = Depends(get_db)):
 
 @app.put("/links/{link_id}", response_model=schemas.Link)
 def update_link(link_id: int, link: schemas.LinkUpdate, db: Session = Depends(get_db)):
+    print(str(link.status) + " update_link", flush=True)
     db_link = crud.update_link(db, link_id=link_id, link_update=link)
     if db_link is None:
         raise HTTPException(status_code=404, detail="Link not found")
