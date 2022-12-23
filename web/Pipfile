@@ -12,6 +12,8 @@ psycopg2 = "*"
 alembic = "*"
 python-dotenv = "*"
 pika = "*"
+python-multipart = "*"
+jinja2 = "*"
 
 [dev-packages]
 

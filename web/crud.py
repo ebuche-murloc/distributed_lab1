@@ -15,7 +15,6 @@ def create_link(db: Session, link: schemas.LinkCreate) -> models.Link:
     return db_link
 
 def update_link(db: Session, link_id: int, link_update: schemas.LinkUpdate) -> models.Link:
-    print(str(link_update.status) + " update_linkBDDDD", flush=True)
     db.query(models.Link).filter(models.Link.id == link_id).update({'status' : link_update.status})
     db.commit()
     return get_link(db, link_id)

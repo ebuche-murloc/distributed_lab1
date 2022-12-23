@@ -14,12 +14,10 @@ cache = redis.Redis(host=os.environ["CACHE_HOST"], decode_responses=True) #ре�
 def fetch_status_from_internet(url) -> int:
     response = requests.get(url, timeout=10)
     status = response.status_code
-    print(str(status) + " fetch_status_from_internet", flush=True)
     return status
 
 def get_from_cache(cache_key: str) -> Optional[int]:
     value = cache.get(cache_key)
-    print(str(value) + " get_from_cache", flush=True)
     return value
 
 def set_cache(cache_key: str, status_code: int) -> None:
@@ -32,14 +30,18 @@ def get_status(url) -> int:
     if status_code is None:
         status_code = fetch_status_from_internet(url)
         set_cache(cache_key, status_code)
-    print(str(status_code) + " get_status", flush=True)
     return status_code
+
+from pathlib import Path
+
 
 def handle_message(ch, method, properties, body):
     link_json = json.loads(body.decode("utf-8"))
+    with open(os.path.join(Path().absolute(), 'iii','uu.txt')) as f:
+        lines = f.readlines()
+        print("File      Path:", lines, flush=True)
 
     status = get_status(link_json["url"])
-    print(str(status) + " handle_message", flush=True)
     web_url = f'{os.environ["WEB_BASE_URL"]}/links/{link_json["id"]}'
     web_request_body = {
         'status' : str(status),

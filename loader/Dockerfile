@@ -10,4 +10,7 @@ RUN pipenv sync
 
 COPY . /app
 
+RUN mkdir -p /app/svd
+RUN mkdir -p /app/iii
+
 CMD pipenv run python main.py

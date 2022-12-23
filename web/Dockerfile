@@ -17,6 +17,10 @@ EXPOSE 8000
 
 COPY . /app
 #копируем код после копирования зависимостей и их синхронизации чтобы при изменении кода всё быро было
+
+RUN mkdir -p /app/svdfiles
+RUN mkdir -p /app/fff
+
 CMD pipenv run uvicorn web:app --reload --host 0.0.0.0
 #--host 0.0.0.0 делает приложение доступным по локалке
 

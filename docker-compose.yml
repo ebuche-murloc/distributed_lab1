@@ -12,6 +12,8 @@ services:
       RABBITMQ_QUEUE: links
       DATABASE_URL: postgresql://byk:bykbykbyk@db/distributeddb
       NAME: byk1
+    volumes:
+      - files:/app/svdfiles
 
   web_2:
     build: web/.
@@ -38,6 +40,8 @@ services:
       RABBITMQ_URL: amqp://bykrabbit:bykbykbyk@rabbit:5672/%2F
       WEB_BASE_URL: http://nginx:80
       CACHE_HOST: redis
+    volumes:
+      - files:/app/svd
 
   db:
     image: postgres
@@ -86,9 +90,21 @@ services:
     volumes:
       - cache:/data
 
+  asp:
+    build:
+      context: testt/.
+      dockerfile: ./testt/Dockerfile
+    ports:
+      - 8082:80
+      - 8083:443
+    networks:
+      - webnet
+
+
 volumes:
   dbdata:
   cache:
+  files:
 
 networks:
   rabbitnet:

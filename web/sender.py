@@ -8,3 +8,5 @@ def send_massage_to_queue(message: str):
     channel.basic_publish(exchange='', routing_key=os.environ.get("RABBITMQ_QUEUE"), body=message.encode('utf-8'))
     channel.close()
     connection.close()
+
+    #одно соединение
